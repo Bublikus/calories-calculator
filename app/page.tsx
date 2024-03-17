@@ -103,7 +103,7 @@ export default function Home() {
             src={image}
             alt="food"
             layout="fill"
-            className="-scale-x-100 rounded-2xl"
+            className="-scale-x-100 rounded-2xl object-cover object-center"
           />
         )}
       </div>
