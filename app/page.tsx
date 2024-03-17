@@ -108,7 +108,7 @@ export default function Home() {
         )}
       </div>
       <div className="flex flex-col justify-around items-center max-w-full w-[640px] h-[480px] max-h-[45svh]">
-        <h1 className="text-4xl font-bold flex-auto overflow-auto">
+        <h1 className="text-4xl font-bold flex-grow-0 overflow-auto">
           {loading ? "loading..." : calories}
         </h1>
 
@@ -126,7 +126,7 @@ export default function Home() {
                 type="file"
                 accept="image/*"
                 onChange={uploadPicture}
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full w-[260px] max-w-full"
               />
             )}
           </div>
