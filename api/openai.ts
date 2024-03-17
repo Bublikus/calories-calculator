@@ -19,6 +19,7 @@ export const fetchChatGPTResponse = async (image: string): Promise<string> => {
               type: "image_url",
               image_url: {
                 url: image,
+                detail: "low",
               },
             },
             {

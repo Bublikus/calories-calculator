@@ -108,32 +108,35 @@ export default function Home() {
         )}
       </div>
       <div className="flex flex-col justify-around items-center max-w-full w-[640px] h-[480px] max-h-[45svh]">
-        <h1 className="text-4xl font-bold flex-grow-0 overflow-auto">
+        <h1 className="text-xl font-bold flex-grow-0 overflow-auto max-w-full">
           {loading ? "loading..." : calories}
         </h1>
 
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-8 font-bold">
           <div>
             {image ? (
               <button
                 onClick={clearImage}
-                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full"
+                className="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded-full"
               >
                 Clear picture
               </button>
             ) : (
-              <input
-                type="file"
-                accept="image/*"
-                onChange={uploadPicture}
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full w-[260px] max-w-full"
-              />
+              <label className="flex bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-full">
+                Upload picture
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={uploadPicture}
+                  className="invisible w-0 h-0 flex-none"
+                />
+              </label>
             )}
           </div>
 
           <button
             id="snap"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+            className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-full"
             onClick={takePicture}
           >
             Take a picture
