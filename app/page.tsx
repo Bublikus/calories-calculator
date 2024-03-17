@@ -117,12 +117,12 @@ export default function Home() {
             {image ? (
               <button
                 onClick={clearImage}
-                className="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded-full"
+                className="flex-none inline-flex bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded-full"
               >
                 Clear picture
               </button>
             ) : (
-              <label className="flex bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-full">
+              <label className="flex-none inline-flex bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-full">
                 Upload picture
                 <input
                   type="file"
@@ -136,7 +136,7 @@ export default function Home() {
 
           <button
             id="snap"
-            className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-full"
+            className="flex-none inline-flex bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-full"
             onClick={takePicture}
           >
             Take a picture
