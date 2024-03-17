@@ -1,10 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 
 export default function Home() {
   const [calories, setCalories] = useState<number | string>("");
   const [loading, setLoading] = useState<boolean>(false);
+  const [image, setImage] = useState<string | null>(null);
 
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -21,22 +23,49 @@ export default function Home() {
 
       const image = canvas.toDataURL("image/jpeg");
 
-      setLoading(true);
-
-      console.log({ image });
-
-      const response = await fetch("/api", {
-        method: "POST",
-        body: JSON.stringify({ image }),
-      });
-
-      const data = await response.text();
-
-      console.log(data);
-
-      setCalories(data);
-      setLoading(false);
+      getTheResponse(image);
     }
+  };
+
+  const uploadPicture = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = async (event) => {
+        const image = event.target?.result;
+
+        if (typeof image === "string") {
+          getTheResponse(image);
+        }
+      };
+
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const getTheResponse = async (image: string) => {
+    setLoading(true);
+
+    setImage(image);
+
+    const response = await fetch("/api", {
+      method: "POST",
+      body: JSON.stringify({ image }),
+    });
+
+    const data = await response.text();
+
+    console.log(data);
+
+    setCalories(data);
+    setLoading(false);
+  };
+
+  const clearImage = () => {
+    setImage(null);
+    setCalories("");
   };
 
   useEffect(() => {
@@ -59,26 +88,57 @@ export default function Home() {
 
   return (
     <div className="relative max-w-full max-h-screen flex flex-col items-center justify-center p-6">
-      <video
-        ref={videoRef}
-        id="webcam"
-        autoPlay
-        playsInline
-        width="640"
-        height="480"
-        className="max-w-full max-h-[45svh] rounded-2xl object-cover -scale-x-100 bg-white/5"
-      />
+      <div className="relative">
+        <video
+          ref={videoRef}
+          id="webcam"
+          autoPlay
+          playsInline
+          width="640"
+          height="480"
+          className="max-w-full max-h-[45svh] rounded-2xl object-cover -scale-x-100 bg-white/5"
+        />
+        {!!image && (
+          <Image
+            src={image}
+            alt="food"
+            layout="fill"
+            className="-scale-x-100 rounded-2xl"
+          />
+        )}
+      </div>
       <div className="flex flex-col justify-around items-center max-w-full w-[640px] h-[480px] max-h-[45svh]">
         <h1 className="text-4xl font-bold flex-auto overflow-auto">
           {loading ? "loading..." : calories}
         </h1>
-        <button
-          id="snap"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-          onClick={takePicture}
-        >
-          Take a picture
-        </button>
+
+        <div className="flex items-center gap-8">
+          <div>
+            {image ? (
+              <button
+                onClick={clearImage}
+                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full"
+              >
+                Clear picture
+              </button>
+            ) : (
+              <input
+                type="file"
+                accept="image/*"
+                onChange={uploadPicture}
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+              />
+            )}
+          </div>
+
+          <button
+            id="snap"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+            onClick={takePicture}
+          >
+            Take a picture
+          </button>
+        </div>
       </div>
     </div>
   );
