@@ -113,7 +113,7 @@ export default function Home() {
         </h1>
 
         <div className="flex items-center gap-8 font-bold">
-          <div>
+          <div className="flex-none">
             {image ? (
               <button
                 onClick={clearImage}
@@ -122,13 +122,13 @@ export default function Home() {
                 Clear picture
               </button>
             ) : (
-              <label className="flex-none inline-flex bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-full">
+              <label className="relative flex-none inline-flex bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-full">
                 Upload picture
                 <input
                   type="file"
                   accept="image/*"
                   onChange={uploadPicture}
-                  className="invisible w-0 h-0 flex-none"
+                  className="absolute pointer-events-none invisible w-0 h-0"
                 />
               </label>
             )}
