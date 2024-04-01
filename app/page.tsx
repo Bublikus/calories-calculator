@@ -59,8 +59,22 @@ export default function Home() {
 
     console.log(data);
 
-    setCalories(data);
+    const result = getNeededText(data);
+
+    setCalories(result);
     setLoading(false);
+  };
+
+  const getNeededText = (data: string): string => {
+    const result = data.match(
+      /Total calories range is: (\d+)-(\d+) \(avg: (\d+)\)/,
+    );
+
+    if (result) {
+      return `Total calories range is: ${result[1]}-${result[2]} (avg: ${result[3]})`;
+    }
+
+    return data;
   };
 
   const clearImage = () => {
@@ -108,7 +122,7 @@ export default function Home() {
         )}
       </div>
       <div className="flex flex-col justify-around items-center max-w-full w-[640px] h-[480px] max-h-[45svh]">
-        <h1 className="text-xl font-bold flex-grow-0 overflow-auto max-w-full">
+        <h1 className="text-xl font-bold flex-grow-0 overflow-auto max-w-full whitespace-pre-wrap">
           {loading ? "loading..." : calories}
         </h1>
 

@@ -24,7 +24,7 @@ export const fetchChatGPTResponse = async (image: string): Promise<string> => {
             },
             {
               type: "text",
-              text: `From the provided image try to recognize and roughly calculate the amount of calories in the food. Return back ONLY the rough number! WITHOUT ANY EXPLANATIONS, RETURN JUST A ROUGH AMOUNT OF CALORIES! If you can\'t recognize the food, please always response with "I can\'t recognize the food".`,
+              text: `Identify the types and quantities of food items present in this image, and its approximate portion size or weight, and any noticeable ingredients or preparation methods. Estimate the total caloric in min-max range for each food item based on its identified type and quantity. Summarize the findings with a rounded total and average calories count for the meal presented in the image, and write back ONLY 1 SHORT SENTENCE in the following format: "Total calories range is: {{min}}-{{max}} (avg: {{avg}})" WITHOUT ANY ADDITIONAL INFORMATION.`,
             },
           ],
         },
